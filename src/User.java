@@ -1,6 +1,7 @@
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,7 +15,8 @@ public class User {
         this.userName = name;
     }
 
-    public String[] compileTweets() throws TwitterException{
+    public List<Tweet> compileTweets() throws TwitterException{
+        ArrayList<Tweet> tweets = new ArrayList<>();
         ConfigurationBuilder cb = new ConfigurationBuilder();
 
         cb.setDebugEnabled(true).setOAuthConsumerKey("ME0BKDlR2hWaSGlc41lm2AGdE");
@@ -26,15 +28,17 @@ public class User {
         twitter4j.Twitter twitter = tf.getInstance();
         Paging page = new Paging(1,100);
 
-        List<Status> users = twitter.getUserTimeline("mike_sayegh", page);
+        List<Status> users = twitter.getUserTimeline("TestMeCUHacks", page);
 
         for (Status user : users) {
-            System.out.println(user + "1");
+            String[] temp = user.toString().split(",");
+            String text = temp[2].substring(7,temp[2].length()-1);
+            String date = temp[0].substring(25,temp[0].length());
+            Tweet tempTweet = new Tweet("text",date);
         }
 
 
 
-        return null;
     }
 
 }

@@ -19,10 +19,9 @@ public class Test {
         twitter4j.Twitter twitter = tf.getInstance();
         Paging page = new Paging(1,100);
 
-        List<Status> users = twitter.getUserTimeline("mike_sayegh", page);
+        List<Status> users = twitter.getUserTimeline("TestMeCUHacks", page);
+        User me = new User("name");
+        me.compileTweets();
 
-        for (Status user : users) {
-            System.out.println(user + "1");
-        }
     }
 }
