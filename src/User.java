@@ -34,7 +34,7 @@ public class User {
             String[] temp = user.toString().split(",");
             String text = temp[2].substring(7,temp[2].length()-1);
             String date = temp[0].substring(25,temp[0].length());
-            tweets.add(new Tweet("text", date));
+            tweets.add(new Tweet(text, date));
         }
 
 
