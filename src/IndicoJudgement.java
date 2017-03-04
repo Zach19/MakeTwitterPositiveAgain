@@ -9,8 +9,8 @@ public class IndicoJudgement {
     public IndicoJudgement() throws IndicoException {
         indico = new Indico("f759097f01407bd1302f6caad8cf62d0");
     }
-    public List<double> judge(List<Tweet> listOfTweets) throws IOException, IndicoException {
-        List<double> numbers = null;
+    public List<Double> judge(List<Tweet> listOfTweets) throws IOException, IndicoException {
+        List<Double> numbers = null;
         for (int i = 0; i < listOfTweets.size(); i++){
             IndicoResult single = indico.sentiment.predict(
                     listOfTweets.get(i).getContent()
