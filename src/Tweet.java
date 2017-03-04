@@ -2,10 +2,18 @@
  * Created by mikesayegh on 2017-03-04.
  */
 public class Tweet {
-    String content;
-    String date;
+    private String content;
+    private String date;
 
-    public Tweet(String content){
-        this.content = content;
+    public Tweet(String currentContent, String currentDate){
+        this.content = currentContent;
+        this.date = currentDate;
     }
+
+    public String getContent(){return this.content;}
+    public String getDate(){return this.date;}
+
+
+
+
 }
