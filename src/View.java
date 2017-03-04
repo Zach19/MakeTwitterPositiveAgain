@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
+import java.util.List;
+
 public class View extends Application{
 
     private Label user = new Label("User:");
@@ -38,12 +40,17 @@ public class View extends Application{
         button.setOnAction(actionEvent ->{
             userName = text.getText();
             User newUser = new User(userName);
+            try {
+                List<Tweet> temp = newUser.compileTweets();
+                System.out.println(temp.get(0).getContent());
+            } catch (TwitterException e) {
+                e.printStackTrace();
+            }
         });
 
 
         button.disableProperty().bind(
-                Bindings.isEmpty(text.textProperty())
-                                );
+                Bindings.isEmpty(text.textProperty()));
 
 
 

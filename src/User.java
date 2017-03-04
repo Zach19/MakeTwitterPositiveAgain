@@ -28,7 +28,7 @@ public class User {
         twitter4j.Twitter twitter = tf.getInstance();
         Paging page = new Paging(1,100);
 
-        List<Status> users = twitter.getUserTimeline("TestMeCUHacks", page);
+        List<Status> users = twitter.getUserTimeline(userName, page);
 
         for (Status user : users) {
             String[] temp = user.toString().split(",");
@@ -36,8 +36,6 @@ public class User {
             String date = temp[0].substring(25,temp[0].length());
             tweets.add(new Tweet(text, date));
         }
-
-
         return tweets;
     }
 
