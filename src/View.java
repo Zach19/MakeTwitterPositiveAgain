@@ -1,3 +1,4 @@
+import io.indico.api.utils.IndicoException;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
@@ -41,8 +42,13 @@ public class View extends Application{
             userName = text.getText();
             User newUser = new User(userName);
             try {
-                List<Tweet> temp = newUser.compileTweets();
-                System.out.println(temp.get(0).getContent());
+                try {
+                    IndicoJudgement judger = new IndicoJudgement();
+                    newUser =
+                } catch (IndicoException e) {
+                    e.printStackTrace();
+                }
+
             } catch (TwitterException e) {
                 e.printStackTrace();
             }

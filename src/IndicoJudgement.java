@@ -9,16 +9,14 @@ public class IndicoJudgement {
     public IndicoJudgement() throws IndicoException {
         indico = new Indico("f759097f01407bd1302f6caad8cf62d0");
     }
-    public double judge(List<Tweet> listOfTweets) throws IOException, IndicoException {
-        double total = 0;
+    public List<double> judge(List<Tweet> listOfTweets) throws IOException, IndicoException {
+        List<double> numbers = null;
         for (int i = 0; i < listOfTweets.size(); i++){
             IndicoResult single = indico.sentiment.predict(
                     listOfTweets.get(i).getContent()
             );
-            Double result = single.getSentiment();
-            total = result + total;
+            numbers.add(single.getSentiment());
         }
-        total = total/listOfTweets.size();
-        return total;
+        return numbers;
     }
 }
