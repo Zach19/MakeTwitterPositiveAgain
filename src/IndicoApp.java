@@ -47,6 +47,10 @@ public class IndicoApp extends Application {
         newUser.compileTweets();
         newUser.setSentimentValues();
         System.out.println(newUser.calculate());
+        view.getTopTweet().setText("Your Most Positive Tweet: " + newUser.mostPositiveTweet());
+        view.getWorstTweet().setText("Your Most Negative Tweet: " + newUser.mostNegativeTweet());
+        view.getScore().setText("Your Score: " + newUser.getScore());
+        view.getUsername().setText("@" + newUser.getUserName());
 
     }
 

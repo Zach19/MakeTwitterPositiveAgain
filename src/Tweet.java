@@ -9,9 +9,14 @@ public class Tweet {
         this.content = currentContent;
         this.date = currentDate;
     }
+    public Tweet(){
+        this.content = "";
+        this.date = "";
+    }
 
     public String getContent(){return this.content;}
     public String getDate(){return this.date;}
+
 
 
 

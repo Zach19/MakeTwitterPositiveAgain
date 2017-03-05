@@ -4,14 +4,14 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.StrictMath.round;
 
 public class User {
     private String userName;
-    private float score;
+    private double score;
 
 
     public User(String n) throws IndicoException{
@@ -21,6 +21,8 @@ public class User {
     public String getUserName(){return this.userName;}
     public void setUserName(String n){this.userName = n;}
     public void setScore(float s){this.score = s;}
+    public double getScore(){return score;}
+
     ArrayList<Tweet> tweets = new ArrayList<>();
     ArrayList<Double> values = new ArrayList<>();
     IndicoJudgement judge = new IndicoJudgement();
@@ -61,14 +63,38 @@ public class User {
     }
 
     public double calculate(){
-        double total = 0;
+        score = 0;
         for (int i = 0; i < values.size(); i++){
-            total = values.get(i) + total;
+            score = values.get(i) + score;
         }
-        total = total/values.size();
-        total = total * 100;
+        score = score/values.size();
+        score = score * 100;
+        score = round(score);
+        return score;
+    }
+    public String mostPositiveTweet() {
+        String mostPositiveTweet = "";
+        double highestScore = 0;
 
-        return total;
+        for (int i = 0; i < values.size(); i++) {
+            if (values.get(i) > highestScore) {
+                mostPositiveTweet = tweets.get(i).getContent();
+                highestScore = values.get(i);
+            }
+        }
+        return mostPositiveTweet;
+    }
+    public String mostNegativeTweet() {
+        String mostNegativeTweet = new String();
+        double lowestScore = 1;
+
+        for (int i = 0; i < values.size(); i++) {
+            if (values.get(i) < lowestScore) {
+                mostNegativeTweet = tweets.get(i).getContent();
+                lowestScore = values.get(i);
+            }
+        }
+        return mostNegativeTweet;
     }
 
 }
