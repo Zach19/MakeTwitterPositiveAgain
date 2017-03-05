@@ -4,9 +4,6 @@ import twitter4j.conf.ConfigurationBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mikesayegh on 2017-03-04.
- */
 public class User {
     private String userName;
     private float score;

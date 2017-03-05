@@ -7,9 +7,6 @@ import twitter4j.TwitterException;
 
 import java.util.List;
 
-/**
- * Created by mikesayegh on 2017-03-04.
- */
 public class IndicoApp extends Application {
     private User model;
     private View view;
