@@ -28,10 +28,15 @@ public class IndicoJudgement {
     }
     public List<Double> judgeEmotions(String content) throws IOException, IndicoException{
         ArrayList<Double> emotions = new ArrayList<>();
-        Map<Emotion, Double> results = indico.emotion.predict(content).getEmotion();
-        for (Map.Entry<Emotion, Double> e : results.entrySet()){
-            emotions.add(e.getValue());
+        try {
+            Map<Emotion, Double> results = indico.emotion.predict(content).getEmotion();
+            for (Map.Entry<Emotion, Double> e : results.entrySet()){
+                emotions.add(e.getValue());
+            }
+        }catch(io.indico.api.utils.IndicoException e){
+            System.out.println("error");
         }
+
         return emotions;
     }
 }

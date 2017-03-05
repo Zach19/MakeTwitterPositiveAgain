@@ -1,11 +1,16 @@
 import javafx.beans.binding.Bindings;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class View extends Pane{
 
@@ -26,6 +31,12 @@ public class View extends Pane{
     private Rectangle fearBox = new Rectangle(120,500,0,30);
     private Rectangle sadnessBox = new Rectangle(120,550,0,30);
     private Rectangle surpriseBox = new Rectangle(120,600,0,30);
+    private Line seperator = new Line(495,50,495,650);
+    private TextField enterTweet = new TextField("Enter a tweet...");
+    private Button submit = new Button("Submit Tweet");
+    private Label potentialScore = new Label();
+    private Label title = new Label("Should I Post This Tweet?");
+   // private Image logo;
 
     public TextField getText(){return text;}
     public Button getButton(){return button;}
@@ -53,12 +64,31 @@ public class View extends Pane{
     public Rectangle getSurpriseBox() {
         return surpriseBox;
     }
+    public TextField getEnterTweet(){
+        return enterTweet;
+    }
+
+    public Button getSubmit(){
+        return submit;
+    }
+
+    public Label getPotentialScore(){
+        return potentialScore;
+    }
 
     private User model;
 
     public View (User m){
         model = m;
 
+        /*Image logo = new Image(getClass().getResourceAsStream("Logo.jpg"));
+        Button b = new Button();
+        b.setGraphic(new ImageView(logo));
+        b.setPrefSize(179,137);
+        b.relocate(410,20);
+        b.setStyle("-fx-base: WHITE;-fx-border-color: rgb(255,255,255)");*/
+
+        super.setStyle("-fx-background: rgb(255,255,255)");
         user.relocate(50,50);
         user.setPrefSize(50,30);
 
@@ -69,21 +99,38 @@ public class View extends Pane{
         button.setPrefSize(100,30);
         button.setDisable(true);
 
+        enterTweet.setPrefSize(400,150);
+        enterTweet.relocate(520,80);
+        enterTweet.setFont(Font.font("Arial", 14));
+        enterTweet.setAlignment(Pos.TOP_LEFT);
+
+        submit.setPrefSize(200,30);
+        submit.relocate(600,250);
+
+        title.setPrefSize(500,30);
+        title.setFont(new Font("Arial Black", 25));
+        title.relocate(500,5);
+        title.setAlignment(Pos.CENTER);
+
         username.relocate(125, 150);
         username.setPrefSize(250, 30);
         username.setFont(Font.font ("Arial Black", 20));
 
-        topTweet.relocate(65, 200);
-        topTweet.setPrefSize(700, 30);
+        topTweet.relocate(10, 200);
+        topTweet.setPrefSize(450, 30);
         topTweet.setFont(Font.font ("Arial", 14));
 
-        worstTweet.relocate(65, 225);
-        worstTweet.setPrefSize(700, 30);
+        worstTweet.relocate(10, 225);
+        worstTweet.setPrefSize(450, 30);
         worstTweet.setFont(Font.font ("Arial", 14));
 
         score.relocate(50, 300);
         score.setPrefSize(400, 30);
         score.setFont(Font.font ("Arial Black", 20));
+
+        potentialScore.relocate(600,350);
+        potentialScore.setPrefSize(400,60);
+        potentialScore.setFont(new Font("Arial Black", 20));
 
         angerScore.relocate(50,400);
         angerScore.setPrefSize(100,30);
@@ -96,6 +143,8 @@ public class View extends Pane{
         surpriseScore.relocate(50,600);
         surpriseScore.setPrefSize(100,30);
 
+        seperator.setStrokeWidth(10);
+
         angerBox.setFill(Color.RED);
         joyBox.setFill(Color.GOLD);
         fearBox.setFill(Color.PURPLE);
@@ -106,7 +155,7 @@ public class View extends Pane{
                 Bindings.isEmpty(text.textProperty())
         );
 
-        getChildren().addAll(user, text, button, username, topTweet, worstTweet, score, angerScore, joyScore, fearScore, sadnessScore, surpriseScore, angerBox,joyBox,fearBox,surpriseBox,sadnessBox);
+        getChildren().addAll(user, text, button, username, topTweet, worstTweet, score, angerScore, joyScore, fearScore, sadnessScore, surpriseScore, angerBox,joyBox,fearBox,surpriseBox,sadnessBox,seperator, enterTweet, submit, potentialScore, title);
     }
 
     public void update(){

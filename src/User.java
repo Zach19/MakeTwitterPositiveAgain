@@ -85,7 +85,6 @@ public class User {
             sadness = sadness + emotions.get(i).get(3);
             surprise = surprise + emotions.get(i).get(4);
         }
-        System.out.println(anger);
         anger = anger / emotions.size();
         joy = joy / emotions.size();
         fear = fear / emotions.size();
