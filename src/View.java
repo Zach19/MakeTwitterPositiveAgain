@@ -80,15 +80,6 @@ public class View extends Pane{
 
     public View (User m){
         model = m;
-
-        /*Image logo = new Image(getClass().getResourceAsStream("Logo.jpg"));
-        Button b = new Button();
-        b.setGraphic(new ImageView(logo));
-        b.setPrefSize(179,137);
-        b.relocate(410,20);
-        b.setStyle("-fx-base: WHITE;-fx-border-color: rgb(255,255,255)");*/
-
-        super.setStyle("-fx-background: rgb(255,255,255)");
         user.relocate(50,50);
         user.setPrefSize(50,30);
 
