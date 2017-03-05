@@ -1,9 +1,12 @@
 import io.indico.Indico;
 import io.indico.api.results.IndicoResult;
+import io.indico.api.text.Emotion;
 import io.indico.api.utils.IndicoException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class IndicoJudgement {
     Indico indico;
@@ -24,7 +27,11 @@ public class IndicoJudgement {
         return single.getTwitterEngagement();
     }
     public List<Double> judgeEmotions(String content) throws IOException, IndicoException{
-        List<Double> results = indico.relevance.predict(content).getRelevance();
-        return results;
+        ArrayList<Double> emotions = new ArrayList<>();
+        Map<Emotion, Double> results = indico.emotion.predict(content).getEmotion();
+        for (Map.Entry<Emotion, Double> e : results.entrySet()){
+            emotions.add(e.getValue());
+        }
+        return emotions;
     }
 }

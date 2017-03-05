@@ -46,11 +46,17 @@ public class IndicoApp extends Application {
         User newUser = new User(view.getText().getText());
         newUser.compileTweets();
         newUser.setSentimentValues();
+        newUser.calculateEmotions();
         double total = newUser.calculate();
         view.getTopTweet().setText("Your Most Positive Tweet:   " + newUser.mostPositiveTweet());
         view.getWorstTweet().setText("Your Most Negative Tweet:   " + newUser.mostNegativeTweet());
         view.getScore().setText("Your Score:   " + total);
         view.getUsername().setText("@" + newUser.getUserName());
+        view.getAngerBox().setWidth(newUser.anger*300);
+        view.getFearBox().setWidth(newUser.fear*300);
+        view.getJoyBox().setWidth(newUser.joy*300);
+        view.getSadnessBox().setWidth(newUser.sadness*300);
+        view.getSurpriseBox().setWidth(newUser.surprise*300);
 
     }
 

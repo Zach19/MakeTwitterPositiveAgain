@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
 public class View extends Pane{
@@ -11,9 +12,19 @@ public class View extends Pane{
     private Label username = new Label("@username");
     private Label topTweet = new Label("Your Most Positive Tweet:");
     private Label worstTweet = new Label("Your Most Negative Tweet:");
+    private Label angerScore = new Label("Anger:");
+    private Label joyScore = new Label("Joy:");
+    private Label fearScore = new Label("Fear:");
+    private Label sadnessScore = new Label("Sadness:");
+    private Label surpriseScore = new Label("Surprise:");
     private Label score = new Label("Your Score:");
     private TextField text = new TextField();
     private Button button = new Button("Search");
+    private Rectangle angerBox = new Rectangle(150,400,0,30);
+    private Rectangle joyBox = new Rectangle(150,450,0,30);
+    private Rectangle fearBox = new Rectangle(150,500,0,30);
+    private Rectangle sadnessBox = new Rectangle(150,550,0,30);
+    private Rectangle surpriseBox = new Rectangle(150,600,0,30);
 
     public TextField getText(){return text;}
     public Button getButton(){return button;}
@@ -22,6 +33,25 @@ public class View extends Pane{
     public Label getWorstTweet(){return worstTweet;}
     public Label getScore(){return score;}
 
+    public Rectangle getAngerBox() {
+        return angerBox;
+    }
+
+    public Rectangle getFearBox() {
+        return fearBox;
+    }
+
+    public Rectangle getJoyBox() {
+        return joyBox;
+    }
+
+    public Rectangle getSadnessBox() {
+        return sadnessBox;
+    }
+
+    public Rectangle getSurpriseBox() {
+        return surpriseBox;
+    }
 
     private User model;
 
@@ -54,11 +84,23 @@ public class View extends Pane{
         score.setPrefSize(300, 30);
         score.setFont(Font.font ("Arial Black", 20));
 
+        angerScore.relocate(50,400);
+        angerScore.setPrefSize(100,30);
+        joyScore.relocate(50,450);
+        joyScore.setPrefSize(100,30);
+        fearScore.relocate(50,500);
+        fearScore.setPrefSize(100,30);
+        sadnessScore.relocate(50,550);
+        sadnessScore.setPrefSize(100,30);
+        surpriseScore.relocate(50,600);
+        surpriseScore.setPrefSize(100,30);
+
+
         button.disableProperty().bind(
                 Bindings.isEmpty(text.textProperty())
         );
 
-        getChildren().addAll(user, text, button, username, topTweet, worstTweet, score);
+        getChildren().addAll(user, text, button, username, topTweet, worstTweet, score, angerScore, joyScore, fearScore, sadnessScore, surpriseScore, angerBox,joyBox,fearBox,surpriseBox,sadnessBox);
     }
 
     public void update(){

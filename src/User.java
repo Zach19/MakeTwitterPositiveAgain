@@ -24,6 +24,8 @@ public class User {
     public void setTotal(float s){this.total = s;}
     ArrayList<Tweet> tweets = new ArrayList<>();
     ArrayList<Double> values = new ArrayList<>();
+    ArrayList<List<Double>> emotions = new ArrayList<>();
+    double anger = 0, joy = 0, fear = 0, sadness = 0, surprise = 0;
     IndicoJudgement judge = new IndicoJudgement();
 
     public List<Tweet> compileTweets() throws TwitterException{
@@ -71,6 +73,24 @@ public class User {
         total = round(total);
 
         return total;
+    }
+    public void calculateEmotions() throws IOException, IndicoException {
+        for(int i = 0; i < tweets.size(); i++){
+            emotions.add(judge.judgeEmotions(tweets.get(i).getContent()));
+        }
+        for(int i = 0; i < emotions.size(); i++){
+            anger = anger + emotions.get(i).get(0);
+            joy = joy + emotions.get(i).get(1);
+            fear = fear + emotions.get(i).get(2);
+            sadness = sadness + emotions.get(i).get(3);
+            surprise = surprise + emotions.get(i).get(4);
+        }
+        System.out.println(anger);
+        anger = anger / emotions.size();
+        joy = joy / emotions.size();
+        fear = fear / emotions.size();
+        sadness = sadness / emotions.size();
+        surprise = surprise / emotions.size();
     }
     public String mostNegativeTweet() {
         String mostNegativeTweet = new String();
