@@ -31,7 +31,7 @@ public class View extends Pane{
     private Rectangle fearBox = new Rectangle(120,500,0,30);
     private Rectangle sadnessBox = new Rectangle(120,550,0,30);
     private Rectangle surpriseBox = new Rectangle(120,600,0,30);
-    private Line seperator = new Line(495,50,495,650);
+    private Line seperator = new Line(495,50,495,600);
     private TextField enterTweet = new TextField("Enter a tweet...");
     private Button submit = new Button("Submit Tweet");
     private Label potentialScore = new Label();
@@ -82,6 +82,8 @@ public class View extends Pane{
         model = m;
         user.relocate(50,50);
         user.setPrefSize(50,30);
+
+        super.setStyle("-fx-background: #55acee");
 
         text.relocate(125, 50);
         text.setPrefSize(150,30);
