@@ -23,6 +23,7 @@ public class User {
     public void setScore(float s){this.score = s;}
     ArrayList<Tweet> tweets = new ArrayList<>();
     ArrayList<Double> values = new ArrayList<>();
+    ArrayList<List<Double>> emotions = new ArrayList<>();
     IndicoJudgement judge = new IndicoJudgement();
 
     public List<Tweet> compileTweets() throws TwitterException{
@@ -56,9 +57,16 @@ public class User {
 
     public void setSentimentValues() throws IOException, IndicoException {
         for (int i = 0; i < tweets.size(); i++){
-            values.add(judge.judge(tweets.get(i).getContent()));
+            values.add(judge.judgeSentiment(tweets.get(i).getContent()));
         }
     }
+
+    public void setEmotions() throws IOException, IndicoException{
+        for (int i = 0; i < tweets.size(); i++){
+            emotions.add(judge.judgeEmotions(tweets.get(i).getContent()));
+        }
+    }
+
 
     public double calculate(){
         double total = 0;
