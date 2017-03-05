@@ -1,4 +1,3 @@
-import io.indico.api.utils.IndicoException;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.scene.Scene;
@@ -21,44 +20,40 @@ public class View extends Application{
     public void start(Stage primaryStage) throws TwitterException {
         Pane aPane = new Pane();
 
-        user.relocate(100,50);
+        user.relocate(50,50);
         user.setPrefSize(50,30);
 
-        text.relocate(175, 50);
+        text.relocate(110, 50);
         text.setPrefSize(150,30);
 
-        button.relocate(200,100);
+        button.relocate(135,100);
         button.setPrefSize(100,30);
         button.setDisable(true);
+
 
 
         aPane.getChildren().addAll(user, text, button);
         primaryStage.setTitle("Make Twitter Positive Again");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(aPane, 500, 150));
+        primaryStage.setScene(new Scene(aPane, 1000, 650));
         primaryStage.show();
 
         button.setOnAction(actionEvent ->{
             userName = text.getText();
             User newUser = new User(userName);
             try {
-                try {
-                    IndicoJudgement judger = new IndicoJudgement();
-                    newUser =
-                } catch (IndicoException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (TwitterException e) {
+                List<Tweet> temp = newUser.compileTweets();
+                System.out.println(temp.get(0).getContent());
+            } catch(TwitterException e){
                 e.printStackTrace();
             }
+
         });
 
 
         button.disableProperty().bind(
-                Bindings.isEmpty(text.textProperty()));
-
-
+                Bindings.isEmpty(text.textProperty())
+                                );
 
     }
 
