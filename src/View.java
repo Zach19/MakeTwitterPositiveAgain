@@ -9,8 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
-import java.util.List;
-
 public class View extends Application{
 
     private Label user = new Label("User:");
@@ -42,16 +40,12 @@ public class View extends Application{
             userName = text.getText();
             User newUser = new User(userName);
             try {
-                try {
-                    IndicoJudgement judger = new IndicoJudgement();
-                    newUser =
-                } catch (IndicoException e) {
-                    e.printStackTrace();
-                }
-
-            } catch (TwitterException e) {
+                IndicoJudgement judger = new IndicoJudgement();
+               // newUser =
+            } catch (IndicoException e) {
                 e.printStackTrace();
             }
+
         });
 
 

@@ -1,6 +1,8 @@
+import io.indico.api.utils.IndicoException;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +12,13 @@ import java.util.List;
 public class User {
     String userName;
     float score;
+    List<Tweet> tweetScores;
 
     public User(String name){
         this.userName = name;
     }
 
-    public List<Tweet> compileTweets() throws TwitterException{
+    public List<Tweet> compileTweets() throws TwitterException, IndicoException, IOException {
         ArrayList<Tweet> tweets = new ArrayList<>();
         ConfigurationBuilder cb = new ConfigurationBuilder();
 
@@ -37,6 +40,34 @@ public class User {
             tweets.add(new Tweet(text, date));
         }
         return tweets;
+    }
+
+    public Tweet mostToxicTweet() throws IndicoException {
+        Tweet mostToxicTweet = new Tweet();
+        double lowestScore = 1;
+
+        for (int i = 0; i < tweetScores.size(); i++) {
+            if (lowestScore > tweetScores.get(i).getScore()) {
+                mostToxicTweet = tweetScores.get(i);
+                lowestScore = tweetScores.get(i).getScore();
+            }
+        }
+
+        return mostToxicTweet;
+    }
+
+    public Tweet mostPositiveTweet() throws IndicoException {
+        Tweet mostPositiveTweet = new Tweet();
+        double highestScore = 0;
+
+        for (int i = 0; i < tweetScores.size(); i++) {
+            if (highestScore < tweetScores.get(i).getScore()) {
+                mostPositiveTweet = tweetScores.get(i);
+                highestScore = tweetScores.get(i).getScore();
+            }
+        }
+
+        return mostPositiveTweet;
     }
 
 }
