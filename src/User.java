@@ -45,6 +45,7 @@ public class User {
         for (Status user : users) {
             String[] temp = user.toString().split(",");
             if(temp[2].length()==0){
+                System.out.println(temp[2] + " EMPTY");
                 continue;
 
             }
@@ -52,6 +53,7 @@ public class User {
                 String text = temp[2].substring(7, temp[2].length() - 1);
                 String date = temp[0].substring(25, temp[0].length());
                 tweets.add(new Tweet(text, date));
+                System.out.println(text);
             }
         }
         return tweets;

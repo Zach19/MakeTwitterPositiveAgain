@@ -107,13 +107,15 @@ public class View extends Pane{
         username.setPrefSize(250, 30);
         username.setFont(Font.font ("Arial Black", 20));
 
-        topTweet.relocate(10, 200);
-        topTweet.setPrefSize(450, 30);
+        topTweet.relocate(10, 190);
+        topTweet.setPrefSize(450, 50);
         topTweet.setFont(Font.font ("Arial", 14));
+        topTweet.setWrapText(true);
 
-        worstTweet.relocate(10, 225);
-        worstTweet.setPrefSize(450, 30);
+        worstTweet.relocate(10, 250);
+        worstTweet.setPrefSize(450, 50);
         worstTweet.setFont(Font.font ("Arial", 14));
+        worstTweet.setWrapText(true);
 
         score.relocate(50, 300);
         score.setPrefSize(400, 30);

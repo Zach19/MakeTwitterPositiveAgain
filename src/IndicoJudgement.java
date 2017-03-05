@@ -18,9 +18,10 @@ public class IndicoJudgement {
             IndicoResult single = indico.sentiment.predict(content);
             return single.getSentiment();
         }catch(io.indico.api.utils.IndicoException e){
-            System.out.println("error");
+            System.out.println("error in grabbing sentiment for the phrase " + content);
+            return .5;
         }
-        return .5;
+
     }
     public Double judgeReception(String content) throws IOException, IndicoException {
         IndicoResult single = indico.twitterEngagement.predict(content);
@@ -28,15 +29,23 @@ public class IndicoJudgement {
     }
     public List<Double> judgeEmotions(String content) throws IOException, IndicoException{
         ArrayList<Double> emotions = new ArrayList<>();
+        ArrayList<Double> defaultList = new ArrayList<>();
+        defaultList.add(.5);
+        defaultList.add(.5);
+        defaultList.add(.5);
+        defaultList.add(.5);
+        defaultList.add(.5);
         try {
             Map<Emotion, Double> results = indico.emotion.predict(content).getEmotion();
             for (Map.Entry<Emotion, Double> e : results.entrySet()){
                 emotions.add(e.getValue());
             }
+            return emotions;
         }catch(io.indico.api.utils.IndicoException e){
-            System.out.println("error");
+            System.out.println("error in grabbing emotions for the phrase " + content);
+            return defaultList;
         }
 
-        return emotions;
+
     }
 }
