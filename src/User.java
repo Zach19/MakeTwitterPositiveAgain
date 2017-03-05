@@ -1,8 +1,12 @@
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
+
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by mikesayegh on 2017-03-04.
+ */
 public class User {
     String userName;
     float score;
@@ -33,16 +37,6 @@ public class User {
             tweets.add(new Tweet(text, date));
         }
         return tweets;
-    }
-    public ArrayList<Double> calculate(ArrayList<Double> ourList){
-        double total = 0;
-        for (int i = 0; i < ourList.size(); i++){
-            total = ourList.get(i) + total;
-        }
-        total = total/ourList.size();
-        total = total * 100;
-
-        return ourList;
     }
 
 }
