@@ -12,6 +12,7 @@ import java.util.List;
 public class User {
     private String userName;
     private float score;
+    double anger = 0, joy = 0, fear = 0, sadness = 0, surprise = 0;
 
 
     public User(String n) throws IndicoException{
@@ -79,4 +80,9 @@ public class User {
         return total;
     }
 
+    public double calculateEmotions(){
+        for (int i = 0; i < emotions.size(); i++){
+
+        }
+    }
 }
