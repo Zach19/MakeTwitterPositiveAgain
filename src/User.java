@@ -80,9 +80,34 @@ public class User {
         return total;
     }
 
-    public double calculateEmotions(){
+    public void calculateEmotions(){
         for (int i = 0; i < emotions.size(); i++){
-
+            List<Double> subString = emotions.get(i);
+            anger = anger + subString.get(0);
+            joy = joy + subString.get(1);
+            fear = fear + subString.get(2);
+            sadness = sadness + subString.get(3);
+            surprise = surprise + subString.get(4);
         }
+    }
+
+    public double getAnger(){
+        return anger;
+    }
+
+    public double getJoy(){
+        return joy;
+    }
+
+    public double getFear(){
+        return fear;
+    }
+
+    public double getSadness(){
+        return sadness;
+    }
+
+    public double getSurprise(){
+        return surprise;
     }
 }
