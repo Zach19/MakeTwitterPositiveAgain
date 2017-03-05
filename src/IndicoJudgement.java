@@ -10,7 +10,13 @@ public class IndicoJudgement {
         indico = new Indico("f759097f01407bd1302f6caad8cf62d0");
     }
     public Double judge(String content) throws IOException, IndicoException {
-        IndicoResult single = indico.sentiment.predict(content);
-        return single.getSentiment();
+        System.out.println(content);
+        try {
+            IndicoResult single = indico.sentiment.predict(content);
+            return single.getSentiment();
+        }catch(io.indico.api.utils.IndicoException e){
+            System.out.println("error");
+        }
+        return .5;
     }
 }

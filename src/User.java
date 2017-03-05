@@ -36,9 +36,15 @@ public class User {
 
         for (Status user : users) {
             String[] temp = user.toString().split(",");
-            String text = temp[2].substring(7,temp[2].length()-1);
-            String date = temp[0].substring(25,temp[0].length());
-            tweets.add(new Tweet(text, date));
+            if(temp[2].length()==0){
+                continue;
+
+            }
+            else {
+                String text = temp[2].substring(7, temp[2].length() - 1);
+                String date = temp[0].substring(25, temp[0].length());
+                tweets.add(new Tweet(text, date));
+            }
         }
     }
     public void setSentimentValues() throws IOException, IndicoException {
@@ -52,7 +58,7 @@ public class User {
             total = values.get(i) + total;
         }
         total = total/values.size();
-        //total = total * 100;
+        total = total * 100;
 
         return total;
     }
