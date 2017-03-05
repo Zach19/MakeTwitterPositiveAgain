@@ -8,12 +8,17 @@ import java.util.List;
  * Created by mikesayegh on 2017-03-04.
  */
 public class User {
-    String userName;
-    float score;
+    private String userName;
+    private float score;
 
-    public User(String name){
-        this.userName = name;
+
+    public User(String n){
+        this.userName = n;
     }
+
+    public String getUserName(){return this.userName;}
+    public void setUserName(String n){this.userName = n;}
+    public void setScore(float s){this.score = s;}
 
     public List<Tweet> compileTweets() throws TwitterException{
         ArrayList<Tweet> tweets = new ArrayList<>();

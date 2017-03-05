@@ -1,24 +1,22 @@
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import twitter4j.TwitterException;
 
-import java.util.List;
-
-public class View extends Application{
+public class View extends Pane{
 
     private Label user = new Label("User:");
     private TextField text = new TextField();
     private Button button = new Button("Search");
-    private String userName;
 
-    public void start(Stage primaryStage) throws TwitterException {
-        Pane aPane = new Pane();
+    public TextField getText(){return text;}
+    public Button getButton(){return button;}
+
+    private User model;
+
+    public View (User m){
+        model = m;
 
         user.relocate(100,50);
         user.setPrefSize(50,30);
@@ -30,35 +28,11 @@ public class View extends Application{
         button.setPrefSize(100,30);
         button.setDisable(true);
 
-
-        aPane.getChildren().addAll(user, text, button);
-        primaryStage.setTitle("Make Twitter Positive Again");
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(aPane, 500, 150));
-        primaryStage.show();
-
-        button.setOnAction(actionEvent ->{
-            userName = text.getText();
-            User newUser = new User(userName);
-            try {
-                List<Tweet> temp = newUser.compileTweets();
-                System.out.println(temp.get(0).getContent());
-            } catch (TwitterException e) {
-                e.printStackTrace();
-            }
-        });
-
-
         button.disableProperty().bind(
-                Bindings.isEmpty(text.textProperty()));
+                Bindings.isEmpty(text.textProperty())
+        );
 
-
-
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-
+        getChildren().addAll(user, text, button);
     }
 
     public void update(){
