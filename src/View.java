@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
+import java.io.IOException;
 import java.util.List;
 
 public class View extends Application{
@@ -40,18 +41,26 @@ public class View extends Application{
 
         button.setOnAction(actionEvent ->{
             userName = text.getText();
-            User newUser = new User(userName);
+            User newUser = null;
             try {
-                try {
-                    IndicoJudgement judger = new IndicoJudgement();
-                    newUser =
-                } catch (IndicoException e) {
-                    e.printStackTrace();
-                }
+                newUser = new User(userName);
+            } catch (IndicoException e) {
+                e.printStackTrace();
+            }
+            try {
+                IndicoJudgement judger = new IndicoJudgement();
+                newUser.compileTweets();
+                newUser.setSentimentValues();
+                System.out.println(newUser.calculate());
 
+            } catch (IndicoException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             } catch (TwitterException e) {
                 e.printStackTrace();
             }
+
         });
 
 

@@ -11,14 +11,16 @@ import java.util.List;
  */
 public class User {
     String userName;
+    ArrayList<Tweet> tweets = new ArrayList<>();
+    ArrayList<Double> values = new ArrayList<>();
+    IndicoJudgement judge = new IndicoJudgement();
     float score;
 
-    public User(String name){
+    public User(String name) throws IndicoException {
         this.userName = name;
     }
 
-    public List<Tweet> compileTweets() throws TwitterException, IOException, IndicoException {
-        ArrayList<Tweet> tweets = new ArrayList<>();
+    public void compileTweets() throws TwitterException, IOException, IndicoException {
         ConfigurationBuilder cb = new ConfigurationBuilder();
 
         cb.setDebugEnabled(true).setOAuthConsumerKey("ME0BKDlR2hWaSGlc41lm2AGdE");
@@ -38,15 +40,19 @@ public class User {
             String date = temp[0].substring(25,temp[0].length());
             tweets.add(new Tweet(text, date));
         }
-        return tweets;
     }
-    public double calculate(ArrayList<Double> ourList){
-        double total = 0;
-        for (int i = 0; i < ourList.size(); i++){
-            total = ourList.get(i) + total;
+    public void setSentimentValues() throws IOException, IndicoException {
+        for (int i = 0; i < tweets.size(); i++){
+            values.add(judge.judge(tweets.get(i).getContent()));
         }
-        total = total/ourList.size();
-        total = total * 100;
+    }
+    public double calculate(){
+        double total = 0;
+        for (int i = 0; i < values.size(); i++){
+            total = values.get(i) + total;
+        }
+        total = total/values.size();
+        //total = total * 100;
 
         return total;
     }
