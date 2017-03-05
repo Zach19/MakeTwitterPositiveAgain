@@ -1,3 +1,4 @@
+import io.indico.api.utils.IndicoException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -5,20 +6,28 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import twitter4j.TwitterException;
 
-import java.util.List;
+import java.io.IOException;
 
 public class IndicoApp extends Application {
     private User model;
     private View view;
 
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws IndicoException{
         model = new User("");
         view = new View(model);
 
         view.getButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                tweetList();
+                try {
+                    tweetList();
+                } catch (IndicoException e) {
+                    e.printStackTrace();
+                } catch (TwitterException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -32,15 +41,12 @@ public class IndicoApp extends Application {
     }
 
 
-    public void tweetList(){
+    public void tweetList() throws IndicoException, TwitterException, IOException {
 
         User newUser = new User(view.getText().getText());
-        try {
-            List<Tweet> temp = newUser.compileTweets();
-            System.out.println(temp.get(0).getContent());
-        } catch(TwitterException e){
-            e.printStackTrace();
-        }
+        newUser.compileTweets();
+        newUser.setSentimentValues();
+        System.out.println(newUser.calculate());
 
     }
 

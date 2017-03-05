@@ -1,6 +1,11 @@
-import twitter4j.*;
+import io.indico.api.utils.IndicoException;
+import twitter4j.Paging;
+import twitter4j.Status;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,16 +14,18 @@ public class User {
     private float score;
 
 
-    public User(String n){
+    public User(String n) throws IndicoException{
         this.userName = n;
     }
 
     public String getUserName(){return this.userName;}
     public void setUserName(String n){this.userName = n;}
     public void setScore(float s){this.score = s;}
+    ArrayList<Tweet> tweets = new ArrayList<>();
+    ArrayList<Double> values = new ArrayList<>();
+    IndicoJudgement judge = new IndicoJudgement();
 
     public List<Tweet> compileTweets() throws TwitterException{
-        ArrayList<Tweet> tweets = new ArrayList<>();
         ConfigurationBuilder cb = new ConfigurationBuilder();
 
         cb.setDebugEnabled(true).setOAuthConsumerKey("ME0BKDlR2hWaSGlc41lm2AGdE");
@@ -34,11 +41,34 @@ public class User {
 
         for (Status user : users) {
             String[] temp = user.toString().split(",");
-            String text = temp[2].substring(7,temp[2].length()-1);
-            String date = temp[0].substring(25,temp[0].length());
-            tweets.add(new Tweet(text, date));
+            if(temp[2].length()==0){
+                continue;
+
+            }
+            else {
+                String text = temp[2].substring(7, temp[2].length() - 1);
+                String date = temp[0].substring(25, temp[0].length());
+                tweets.add(new Tweet(text, date));
+            }
         }
         return tweets;
+    }
+
+    public void setSentimentValues() throws IOException, IndicoException {
+        for (int i = 0; i < tweets.size(); i++){
+            values.add(judge.judge(tweets.get(i).getContent()));
+        }
+    }
+
+    public double calculate(){
+        double total = 0;
+        for (int i = 0; i < values.size(); i++){
+            total = values.get(i) + total;
+        }
+        total = total/values.size();
+        total = total * 100;
+
+        return total;
     }
 
 }
