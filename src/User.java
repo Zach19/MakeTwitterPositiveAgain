@@ -1,6 +1,8 @@
+import io.indico.api.utils.IndicoException;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class User {
         this.userName = name;
     }
 
-    public List<Tweet> compileTweets() throws TwitterException{
+    public List<Tweet> compileTweets() throws TwitterException, IOException, IndicoException {
         ArrayList<Tweet> tweets = new ArrayList<>();
         ConfigurationBuilder cb = new ConfigurationBuilder();
 
@@ -37,6 +39,16 @@ public class User {
             tweets.add(new Tweet(text, date));
         }
         return tweets;
+    }
+    public double calculate(ArrayList<Double> ourList){
+        double total = 0;
+        for (int i = 0; i < ourList.size(); i++){
+            total = ourList.get(i) + total;
+        }
+        total = total/ourList.size();
+        total = total * 100;
+
+        return total;
     }
 
 }
