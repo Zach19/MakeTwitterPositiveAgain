@@ -50,7 +50,7 @@ public class IndicoApp extends Application {
         double total = newUser.calculate();
         view.getTopTweet().setText("Your Most Positive Tweet:   " + newUser.mostPositiveTweet());
         view.getWorstTweet().setText("Your Most Negative Tweet:   " + newUser.mostNegativeTweet());
-        view.getScore().setText("Your Score:   " + total);
+        view.getScore().setText("Your Score: " + total + "% Positivity");
         view.getUsername().setText("@" + newUser.getUserName());
         view.getAngerBox().setWidth(newUser.anger*300);
         view.getFearBox().setWidth(newUser.fear*300);

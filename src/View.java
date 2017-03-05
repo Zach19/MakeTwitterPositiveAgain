@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
@@ -20,11 +21,11 @@ public class View extends Pane{
     private Label score = new Label("Your Score:");
     private TextField text = new TextField();
     private Button button = new Button("Search");
-    private Rectangle angerBox = new Rectangle(150,400,0,30);
-    private Rectangle joyBox = new Rectangle(150,450,0,30);
-    private Rectangle fearBox = new Rectangle(150,500,0,30);
-    private Rectangle sadnessBox = new Rectangle(150,550,0,30);
-    private Rectangle surpriseBox = new Rectangle(150,600,0,30);
+    private Rectangle angerBox = new Rectangle(120,400,0,30);
+    private Rectangle joyBox = new Rectangle(120,450,0,30);
+    private Rectangle fearBox = new Rectangle(120,500,0,30);
+    private Rectangle sadnessBox = new Rectangle(120,550,0,30);
+    private Rectangle surpriseBox = new Rectangle(120,600,0,30);
 
     public TextField getText(){return text;}
     public Button getButton(){return button;}
@@ -72,16 +73,16 @@ public class View extends Pane{
         username.setPrefSize(250, 30);
         username.setFont(Font.font ("Arial Black", 20));
 
-        topTweet.relocate(125, 200);
+        topTweet.relocate(65, 200);
         topTweet.setPrefSize(700, 30);
-        topTweet.setFont(Font.font ("Arial", 10));
+        topTweet.setFont(Font.font ("Arial", 14));
 
-        worstTweet.relocate(125, 225);
+        worstTweet.relocate(65, 225);
         worstTweet.setPrefSize(700, 30);
-        worstTweet.setFont(Font.font ("Arial", 10));
+        worstTweet.setFont(Font.font ("Arial", 14));
 
         score.relocate(50, 300);
-        score.setPrefSize(300, 30);
+        score.setPrefSize(400, 30);
         score.setFont(Font.font ("Arial Black", 20));
 
         angerScore.relocate(50,400);
@@ -95,6 +96,11 @@ public class View extends Pane{
         surpriseScore.relocate(50,600);
         surpriseScore.setPrefSize(100,30);
 
+        angerBox.setFill(Color.RED);
+        joyBox.setFill(Color.GOLD);
+        fearBox.setFill(Color.PURPLE);
+        sadnessBox.setFill(Color.BLUE);
+        surpriseBox.setFill(Color.GREEN);
 
         button.disableProperty().bind(
                 Bindings.isEmpty(text.textProperty())
