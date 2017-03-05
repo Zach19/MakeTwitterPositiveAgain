@@ -4,14 +4,14 @@ import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.StrictMath.round;
 
 public class User {
     private String userName;
-    private float score;
+    private double total;
 
 
     public User(String n) throws IndicoException{
@@ -19,8 +19,9 @@ public class User {
     }
 
     public String getUserName(){return this.userName;}
+    public double getTotal(){return this.total;}
     public void setUserName(String n){this.userName = n;}
-    public void setScore(float s){this.score = s;}
+    public void setTotal(float s){this.total = s;}
     ArrayList<Tweet> tweets = new ArrayList<>();
     ArrayList<Double> values = new ArrayList<>();
     IndicoJudgement judge = new IndicoJudgement();
@@ -56,7 +57,7 @@ public class User {
 
     public void setSentimentValues() throws IOException, IndicoException {
         for (int i = 0; i < tweets.size(); i++){
-            values.add(judge.judge(tweets.get(i).getContent()));
+            values.add(judge.judgeSentiment(tweets.get(i).getContent()));
         }
     }
 
@@ -67,8 +68,33 @@ public class User {
         }
         total = total/values.size();
         total = total * 100;
+        total = round(total);
 
         return total;
+    }
+    public String mostNegativeTweet() {
+        String mostNegativeTweet = new String();
+        double lowestScore = 1;
+
+        for (int i = 0; i < values.size(); i++) {
+            if (values.get(i) < lowestScore) {
+                mostNegativeTweet = tweets.get(i).getContent();
+                lowestScore = values.get(i);
+            }
+        }
+        return mostNegativeTweet;
+    }
+    public String mostPositiveTweet() {
+        String mostPositiveTweet = "";
+        double highestScore = 0;
+
+        for (int i = 0; i < values.size(); i++) {
+            if (values.get(i) > highestScore) {
+                mostPositiveTweet = tweets.get(i).getContent();
+                highestScore = values.get(i);
+            }
+        }
+        return mostPositiveTweet;
     }
 
 }
